@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Jascha030\LocalValet\Console\Command\Setup;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+require __DIR__ . '/vendor/autoload.php';
+
+(static function (): void {
+  $app   = new Application('Local Valet', '1.0.0');
+  $app->add(new Setup());
+  $app->setDefaultCommand('setup');
+
+  try {
+    $app->run(new ArgvInput(), $output = new ConsoleOutput());
+  } catch (Exception $e) {
+    $output->writeln('<error>' . $e->getMessage() . '</error>');
+
+    exit(Command::FAILURE);
+  }
+})();
