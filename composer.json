@@ -13,12 +13,12 @@
     "homepage": "https://github.com/jascha030",
     "autoload": {
         "psr-4": {
-            "Jascha030\\Project\\": "src/"
+            "Jascha030\\LocalValet\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Jascha030\\Project\\": "tests/Unit/"
+            "Jascha030\\LocalValet\\": "tests/Unit/"
         }
     },
     "repositories": [],
@@ -26,6 +26,7 @@
     "prefer-stable": true,
     "require": {
         "php": "~8.0||~8.1||~8.2",
+        "jascha030/service-provider": "^1.0",
         "symfony/console": "^6.2",
         "symfony/filesystem": "^6.2",
         "symfony/finder": "^6.2",
@@ -66,16 +67,20 @@
             ".php-cs-fixer.dist.php",
             ".phpstorm.meta.php",
             "phpstan.neon.dist",
-            "phpunit.xml.dist"
+            "phpunit.xml.dist",
+            "psalm.xml"
         ]
     },
     "scripts": {
         "phpunit": "tools/phpunit.phar",
         "php-cs-fixer": "tools/php-cs-fixer",
         "phpstan": "vendor/bin/phpstan",
+        "psalm": "vendor/bin/psalm",
         "format": "@php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "test": "@phpunit -c phpunit.xml.dist",
-        "analyze": "@phpstan analyze --config=phpstan.neon.dist",
-        "analyze:baseline": "@analyze --generate-baseline"
+        "phpstan:analyze": "@phpstan analyze -c phpstan.neon.dist",
+        "phpstan:baseline": "@phpstan:analyze --generate-baseline",
+        "psalm:run": "@psalm --config=psalm.xml",
+        "psalm:baseline": "@psalm --config=psalm.xml"
     }
 }
